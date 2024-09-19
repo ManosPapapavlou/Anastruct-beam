@@ -9,6 +9,7 @@ import pandas as pd  # Import pandas for DataFrame handling
 
 app = Flask(__name__)
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -176,4 +177,4 @@ def input_properties():
     return render_template('input_properties.html', num_spans=num_spans, width=width, height=height)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
