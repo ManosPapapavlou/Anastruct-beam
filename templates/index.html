@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Concrete Beam Analysis - Step 1</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Concrete Beam Analysis</h1>
+        <form action="/" method="post">
+            <div class="form-group">
+                <label for="num_spans">Number of Spans:</label>
+                <input type="number" class="form-control" id="num_spans" name="num_spans" value="3" required>
+            </div>
+
+            <div class="form-group">
+                <label for="width">Beam Width (m):</label>
+                <input type="number" step="any" class="form-control" id="width" name="width" value="0.25" required>
+            </div>
+
+            <div class="form-group">
+                <label for="height">Beam Height (m):</label>
+                <input type="number" step="any" class="form-control" id="height" name="height" value="0.5" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Next</button>
+        </form>
+    </div>
+</body>
+</html>

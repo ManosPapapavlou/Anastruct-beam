@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Notebook</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        body {
+            padding: 20px;
+        }
+        .comment {
+            color: #666;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center mb-4">Project Notebook</h1>
+
+        <!-- Section for Folder Directories and Comments -->
+        <div class="section mb-5" id="folders">
+            <h2>Folders and Directories</h2>
+            <div class="list-group">
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <span><a href="files/design1.dwg" download>Design Folder</a></span>
+                    <span class="comment">Contains all design files and blueprints</span>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <span><a href="files/calculations.xlsx" download>Calculations Folder</a></span>
+                    <span class="comment">Engineering calculations and data</span>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <span><a href="files/report.pdf" download>Report Folder</a></span>
+                    <span class="comment">Final project report</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section for Project Information -->
+        <div class="section mb-5" id="project-info">
+            <h2>Project Information</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p><strong>Project Name:</strong> Building Structural Design</p>
+                    <p><strong>Client:</strong> ABC Construction Co.</p>
+                    <p><strong>Project Manager:</strong> John Doe</p>
+                    <p><strong>Start Date:</strong> January 1, 2024</p>
+                    <p><strong>End Date:</strong> December 31, 2024</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section for Notes (Directly Written Inside HTML) -->
+        <div class="section mb-5" id="notes">
+            <h2>Project Notes</h2>
+            <div class="card">
+                <div class="card-body">
+                    <p><strong>Note 1:</strong> We need to double-check the structural analysis for the new beam layout.</p>
+                    <p><strong>Note 2:</strong> Client wants updated calculations by the end of next week.</p>
+                    <p><strong>Note 3:</strong> Review the materials specification document before the next meeting.</p>
+                </div>
+            </div>
+
+            <!-- A textarea for adding new notes -->
+            <h3 class="mt-4">Add New Notes</h3>
+            <textarea class="form-control" id="newNote" placeholder="Write your notes here..."></textarea>
+            <button class="btn btn-primary mt-3" onclick="addNote()">Add Note</button>
+        </div>
+
+        <!-- Dynamic notes section -->
+        <div class="section mb-5" id="dynamic-notes">
+            <h3>Additional Notes</h3>
+            <div id="notesList" class="list-group"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript for adding notes dynamically -->
+    <script>
+        function addNote() {
+            const noteContent = document.getElementById('newNote').value;
+            if (noteContent.trim() !== '') {
+                const noteElement = document.createElement('div');
+                noteElement.className = 'list-group-item';
+                noteElement.innerHTML = `<p>${noteContent}</p>`;
+                document.getElementById('notesList').appendChild(noteElement);
+                document.getElementById('newNote').value = ''; // Clear the textarea
+            } else {
+                alert('Please write something in the note.');
+            }
+        }
+    </script>
+
+</body>
+</html>

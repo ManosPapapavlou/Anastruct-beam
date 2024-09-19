@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Concrete Beam Analysis - Step 2</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter Element and Node Properties</h1>
+        <form action="/input-properties" method="post">
+            <input type="hidden" name="num_spans" value="{{ num_spans }}">
+            <input type="hidden" name="width" value="{{ width }}">
+            <input type="hidden" name="height" value="{{ height }}">
+            <input type="hidden" name="material" value="{{ material }}">
+
+            <!-- Element Properties Section -->
+            <h3>Element Properties</h3>
+            <p>Enter the length and load for each element:</p>
+            {% for i in range(num_spans) %}
+            <div class="form-group">
+                <label for="element_data">Element {{ i + 1 }}:</label>
+                <input type="number" step="any" class="form-control" name="element_data" placeholder="Length (m)" value="5" required>
+                <input type="number" step="any" class="form-control" name="element_data" placeholder="Load (kN/m)" value="-50" required>
+            </div>
+            {% endfor %}
+
+            <!-- Node Properties Section -->
+            <h3>Node Properties (Supports and Loads)</h3>
+            <p>Select the support type and enter node loads:</p>
+            {% for i in range(num_spans + 1) %}
+            <div class="form-group">
+                <label for="node_data_support">Node {{ i + 1 }}:</label>
+                <select class="form-control" name="node_data_support" required>
+                    <option value="none">None</option>
+                    <option value="fixed">Fixed</option>
+                    <option value="hinged" selected>Hinged</option>
+                    <option value="roller">Roller</option>
+                </select>
+                <label for="node_load_vert">Vertical Load (kN):</label>
+                <input type="number" step="any" class="form-control" name="node_load_vert" placeholder="Vertical Load (kN)" value="0">
+                
+                <label for="node_load_horiz">Horizontal Load (kN):</label>
+                <input type="number" step="any" class="form-control" name="node_load_horiz" placeholder="Horizontal Load (kN)" value="0">
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Analyze</button>
+        </form>
+    </div>
+</body>
+</html>

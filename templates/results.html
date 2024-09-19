@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Results</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Analysis Results</h1>
+
+        <h2>Beam Dimensions</h2>
+        <p>Width: {{ "%.4f" | format(width) }} m</p>
+        <p>Height: {{ "%.4f" | format(height) }} m</p>
+
+        <h2>Structural Diagram</h2>
+        <img src="data:image/png;base64,{{ structure_url }}" alt="Structure" class="img-fluid">
+
+        <h2>Bending Moment Diagram</h2>
+        <img src="data:image/png;base64,{{ moment_url }}" alt="Bending Moment" class="img-fluid">
+
+        <h2>Shear Force Diagram</h2>
+        <img src="data:image/png;base64,{{ shear_url }}" alt="Shear Force" class="img-fluid">
+
+        <h2>Displacement Diagram</h2>
+        <img src="data:image/png;base64,{{ displacement_url }}" alt="Displacement" class="img-fluid">
+
+        <!-- Reactions at Supports -->
+        <h2>Reactions at Supports</h2>
+        {% if reactions %}
+            <div class="scrollable-table">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Node ID</th>
+                            <th>Reaction Force Fx (kN)</th>
+                            <th>Reaction Force Fy (kN)</th>
+                            <th>Tz (kN)</th>
+                            <th>DIsp ux (mm)</th>
+                            <th>Disp uy (mm)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in reactions %}
+                            <tr>
+                                <td>{{ item.id }}</td>
+                                <td>{{ "%.4f" | format(item.Fx) }}</td>
+                                <td>{{ "%.4f" | format(item.Fy) }}</td>
+                                <td>{{ "%.4f" | format(item.Tz) }}</td>
+                                <td>{{ "%.4f" | format(item.ux * 1000) }}</td>
+                                <td>{{ "%.4f" | format(item.uy * 1000) }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No reaction data available.</p>
+        {% endif %}
+
+        <!-- Element Moments and Shear Forces -->
+        <h2>Element Moments and Shear Forces</h2>
+        {% if moments %}
+            <div class="scrollable-table">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Element ID</th>
+                            <th>Min Moment (Mmin, kNm)</th>
+                            <th>Max Moment (Mmax, kNm)</th>
+                            <th>Min Shear Force (Qmin, kN)</th>
+                            <th>Max Shear Force (Qmax, kN)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in moments %}
+                            <tr>
+                                <td>{{ item.id }}</td>
+                                <td>{{ "%.4f" | format(item.Mmin) }}</td>
+                                <td>{{ "%.4f" | format(item.Mmax) }}</td>
+                                <td>{{ "%.4f" | format(item.Qmin) }}</td>
+                                <td>{{ "%.4f" | format(item.Qmax) }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No moment and shear force data available.</p>
+        {% endif %}
+
+        <!-- Element Displacements -->
+        <h2>Element Displacements</h2>
+        {% if displacements %}
+            <div class="scrollable-table">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Element ID</th>
+                            <th>Max Displacement (umax, mm)</th>
+                            <th>Min Displacement (umin, mm)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in displacements %}
+                            <tr>
+                                <td>{{ item.id }}</td>
+                                <td>{{ "%.4f" | format(item.wmax * 1000) }}</td> <!-- Converted to mm -->
+                                <td>{{ "%.4f" | format(item.wmin * 1000) }}</td> <!-- Converted to mm -->
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No displacement data available.</p>
+        {% endif %}
+
+        <!-- Start Over Button -->
+        <form action="{{ url_for('index') }}" method="get">
+            <button type="submit" class="btn btn-primary">Start Over</button>
+        </form>
+    </div>
+</body>
+</html>
