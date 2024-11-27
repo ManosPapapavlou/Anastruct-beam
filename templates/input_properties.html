@@ -15,38 +15,55 @@
             <input type="hidden" name="material" value="{{ material }}">
 
             <!-- Element Properties Section -->
-            <h3>Element Properties</h3>
-            <p>Enter the length and load for each element:</p>
-            {% for i in range(num_spans) %}
-            <div class="form-group">
-                <label for="element_data">Element {{ i + 1 }}:</label>
-                <input type="number" step="any" class="form-control" name="element_data" placeholder="Length (m)" value="5" required>
-                <input type="number" step="any" class="form-control" name="element_data" placeholder="Load (kN/m)" value="-50" required>
+            <h3>
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#elementProperties" aria-expanded="true" aria-controls="elementProperties" style="color: white;">
+                    Properties
+                </button>
+            </h3>
+            <div id="elementProperties" class="collapse show">
+                <p>Enter the length and load for each element:</p>
+                {% for i in range(num_spans) %}
+                <div class="form-group">
+                    <label for="element_data">Element {{ i + 1 }}:</label>
+                    <input type="number" step="any" class="form-control" name="element_data" placeholder="Length (m)" value="5" required>
+                    <input type="number" step="any" class="form-control" name="element_data" placeholder="Load (kN/m)" value="-50" required>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
 
             <!-- Node Properties Section -->
-            <h3>Node Properties (Supports and Loads)</h3>
-            <p>Select the support type and enter node loads:</p>
-            {% for i in range(num_spans + 1) %}
-            <div class="form-group">
-                <label for="node_data_support">Node {{ i + 1 }}:</label>
-                <select class="form-control" name="node_data_support" required>
-                    <option value="none">None</option>
-                    <option value="fixed">Fixed</option>
-                    <option value="hinged" selected>Hinged</option>
-                    <option value="roller">Roller</option>
-                </select>
-                <label for="node_load_vert">Vertical Load (kN):</label>
-                <input type="number" step="any" class="form-control" name="node_load_vert" placeholder="Vertical Load (kN)" value="0">
-                
-                <label for="node_load_horiz">Horizontal Load (kN):</label>
-                <input type="number" step="any" class="form-control" name="node_load_horiz" placeholder="Horizontal Load (kN)" value="0">
+            <h3>
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#nodeProperties" aria-expanded="true" aria-controls="nodeProperties" style="color: white;">
+                    Node Properties (Supports and Loads)
+                </button>
+            </h3>
+            <div id="nodeProperties" class="collapse show">
+                <p>Select the support type and enter node loads:</p>
+                {% for i in range(num_spans + 1) %}
+                <div class="form-group">
+                    <label for="node_data_support">Node {{ i + 1 }}:</label>
+                    <select class="form-control" name="node_data_support" required>
+                        <option value="none">None</option>
+                        <option value="fixed">Fixed</option>
+                        <option value="hinged" selected>Hinged</option>
+                        <option value="roller">Roller</option>
+                    </select>
+                    <label for="node_load_vert">Vertical Load (kN):</label>
+                    <input type="number" step="any" class="form-control" name="node_load_vert" placeholder="Vertical Load (kN)" value="0">
+                    
+                    <label for="node_load_horiz">Horizontal Load (kN):</label>
+                    <input type="number" step="any" class="form-control" name="node_load_horiz" placeholder="Horizontal Load (kN)" value="0">
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
 
             <button type="submit" class="btn btn-primary">Analyze</button>
         </form>
     </div>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
